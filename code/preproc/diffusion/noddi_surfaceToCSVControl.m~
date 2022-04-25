@@ -1,4 +1,5 @@
-projdir = '/data/user/mdefende/datasets/MDP';
+projdir = '/data/user/mdefende/datasets/MDP-diff';
+fsdir = '/data/user/mdefende/datasets/MDP/subs';
 
 % subject's directory
 subdir = fullfile(projdir,'subs');
@@ -7,14 +8,8 @@ subdir = fullfile(projdir,'subs');
 demo = readtable('/data/user/mdefende/Projects/prl-struct/data/demographics.csv');
 subs = demo.Subject;
 
-% list of surfaces to put into the csv
-surfs = {'thickness'};
-
-% fwhm values to include
-fwhm = 0;
-
 % set output directory for the csv files
-outdir = fullfile(projdir,'SurfaceCSV-test');
+outdir = fullfile(projdir,'noddi-csv-test');
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
@@ -23,16 +18,24 @@ end
 % and url labelbase variables from the general preprocessing
 
 label_strings = {'RL-bin','lpz'};
+%label_strings = {'full-area.label'};
 region = 'V1';
 
 for ii = 1:length(subs)
     
-    labs = dir(fullfile(subdir,subs{ii},'label','MKD_labels','*.label'));
+    labs = dir(fullfile(fsdir,subs{ii},'label','MKD_labels','*.label'));
     labs(~contains({labs.name},label_strings)) = [];
     labs(~contains({labs.name},region)) = [];
     
+    % remove pre-dilated forms of dilated labels
+    dil = labs(contains({labs.name},'dilated'));
+    
+    for jj = 1:length(dil)
+        labs(strcmp({labs.name},strrep(dil(jj).name,'-dilated',''))) = [];
+    end
+    
     for labnum = 1:length(labs)
-        label_file = fullfile(labs(labnum).folder,labs(labnum).name);
-        surfaceToCSVConversion(subs{ii},subdir,label_file,surfs,fwhm,outdir)
+        label_file = ['MKD_labels/' labs(labnum).name];
+        noddi_surfaceToCSVConversion(subs{ii},fsdir,subdir,label_file,outdir)
     end
 end

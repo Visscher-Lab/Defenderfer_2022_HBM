@@ -1,0 +1,5 @@
+This project stores preprocessing and processing code for performing NODDI analysis (Zhang et al. 2011) at the PRL, URL, and LPZ in macular degeneration participants. Included are scripts setting up preprocessing using a basic FSL pipeline including topup and eddy. b0 images come from the diffusion scans themselves as opposed to SpinEcho fieldmaps. The NODDI toolbox used is version 1.01 that has been modified to remove status bar graphics and allow the pipeline to be run completely from the command line without needing the MATLAB GUI.
+
+Scripts of interest are diff_preprocess.m that does basic file management and sets up the bash script to perform topup and eddy as well as noddi_MASTER that sets up the bash script to run NODDI. SaveParamsAsNIfTI_MASTER will convert the output .mat files from NODDI to nifti files in the individual's diffusion space. From there, conversion to surface space is handled by bbregister_b0 which creates bash scripts to performed registration from an unwarped b0 diffusion image to an individual's Freesurfer surface. 
+
+Example preprocessing, NODDI processing, and registration scripts can be found in example-bash-scripts for one subject.
