@@ -1,1 +1,0 @@
-Need to write a script to convert thickness and noddi data from fsaverage space into CSVs for the bar ROI analyses. currently, full-V1 ROIs are coming from individual space which is not how that worked in the paper.
