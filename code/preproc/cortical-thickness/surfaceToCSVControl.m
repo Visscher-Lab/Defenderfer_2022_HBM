@@ -14,7 +14,7 @@ surfs = {'thickness'};
 fwhm = 0;
 
 % set output directory for the csv files
-outdir = fullfile(projdir,'SurfaceCSV_full_V1-test');
+outdir = fullfile(projdir,'SurfaceCSV-test');
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
@@ -22,8 +22,7 @@ end
 % strings that are part of the label name to match on, made from the prl
 % and url labelbase variables from the general preprocessing
 
-%label_strings = {'RL-bin','lpz'};
-label_strings = {'full-area.label'};
+label_strings = {'RL-bin','lpz'};
 region = 'V1';
 
 for ii = 1:length(subs)

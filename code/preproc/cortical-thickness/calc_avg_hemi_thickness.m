@@ -10,7 +10,7 @@ counter = 1;
 
 for ii = 1:length(subs)
     for jj = 1:length(hemi)
-    hthick = read_curv(fullfile(subdir,subj,'surf',[hemi{jj} '.thickness']));
+    hthick = read_curv(fullfile(subdir,subs{ii},'surf',[hemi{jj} '.thickness']));
     hthick(hthick == 0) = [];
     
     thick{counter,1} = subs{ii};

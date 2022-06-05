@@ -6,17 +6,10 @@ and the surfaces to convert
 
 Inputs:
     subj: subject name as a string
-    subdir: directory where the subject's FreeSurfer folder is located
-    label: path to the PRL/URL label for the subject
-    surfs: cell array of surface file stems such as 'thickness', 'sulc',
-           etc.
-    fwhm: array of fwhms to include
-    demo_path: full path to demographics file, typically getting
-        information such as age.
+    fsdir: directory where the subject's FreeSurfer folder is located
+    subdir: directory where the subject's NODDI data are located
+    label_file: path to the PRL/URL label for the subject
     outdir: where the resulting csv file will be stored.
-    csvbase: string that will be added to the subject name when writing to
-        a csv file. So csv files will have the form <subject><csvbase>.csv
-
 
 Written by: Matt Defenderfer
 Date: 11/20/2019
@@ -39,9 +32,8 @@ end
 % read in first surf to get number of vertices
 s1 = load_mgh(fullfile(surfs(1).folder,surfs(1).name));
 
-% get the vertex indices. can use this to assign predictions back to the
-% specific vertex down the line. THIS IS NOT THE EXACT VERTEX NUMBER, BUT
-% THE INDEX THAT VERTEX IS FOUND AT IN THE SURFACE ARRAY (SO VERTEXNUM + 1)
+% get the vertex numbers. can use this to assign predictions back to the
+% specific vertex down the line.
 vertex = [1:length(s1)]'-1;
 
 ind = label(:,1) + 1;

@@ -9,7 +9,7 @@ demo = readtable('/data/user/mdefende/Projects/prl-struct/data/demographics.csv'
 subs = demo.Subject;
 
 % set output directory for the csv files
-outdir = fullfile(projdir,'noddi-csv-full-V1-test');
+outdir = fullfile(projdir,'noddi-csv-test');
 if ~exist(outdir,'dir')
     mkdir(outdir);
 end
@@ -17,8 +17,7 @@ end
 % strings that are part of the label name to match on, made from the prl
 % and url labelbase variables from the general preprocessing
 
-%label_strings = {'RL-bin','lpz'};
-label_strings = {'full-area.label'};
+label_strings = {'RL-bin','lpz'};
 region = 'V1';
 
 for ii = 1:length(subs)
