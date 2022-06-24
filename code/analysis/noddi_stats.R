@@ -138,7 +138,7 @@ ficvf_f_plot <- f_comb_within_roi %>%
   c.theme() +
   theme(strip.text = element_text(size = 12))
 
-ggsave('code/analysis/figures/figure_6.png', norm_thick_f_plot)
+ggsave('code/analysis/figures/figure_6.png', ficvf_f_plot)
 
 # Three-way ANOVA of FICVF Across Diagnosis, ROI, and Onset Across V1
 f_comb_within_roi %>%
