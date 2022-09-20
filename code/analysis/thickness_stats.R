@@ -49,7 +49,18 @@ vr_comb %>%
              between = c(dx,onset),
              #covariate = ecc, # can comment out this line for normal ANOVA
              type = 'III')
-  
+
+# Follow-up ANCOVA of Normalized Thickness Across Location and Onset at PRL and
+# URL Only Within MD Groups Accounting for the Effect of Visual Acuity
+vr_comb %>%
+  filter(!str_detect(location, 'LPZ'), dx == 'MD')  %>%
+  mutate(location = fct_drop(location)) %>%
+  anova_test(dv = norm_thick,
+             wid = subject,
+             within = location,
+             between = onset,
+             covariate = c(age,acuity),
+             type = 'III')
 
 ########################### Full V1 ROIs #######################################
 

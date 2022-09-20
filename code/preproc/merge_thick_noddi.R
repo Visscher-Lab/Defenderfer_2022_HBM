@@ -18,16 +18,16 @@ vr_noddi <- read_csv('data/vertexwise/noddi-vision-rois.csv')
 # dataframes, then convert group variables to factors
 vr_comb <- demo %>%
   clean_names() %>%
-  select(subject, dx, onset) %>%
+  select(subject, dx, onset, age, acuity) %>%
   right_join(vr_thick, by = 'subject') %>%
   right_join(vr_noddi, by = c('subject','vertex','hemi')) %>%
-  mutate(across(subject:location, factor))
+  mutate(across(c(subject,dx,onset,location), factor))
 
 # compute average thickness, normalized thickness, ficvf, odi, and eccentricity
 # of each ROI
 vr_comb <- vr_comb %>%
   group_by(subject,dx,onset,location) %>%
-  summarize(across(c(ecc,norm_thick:odi), mean, .names = '{.col}')) %>%
+  summarize(across(c(age,acuity,ecc,norm_thick:odi), mean, .names = '{.col}')) %>%
   ungroup()
 
 # calculate average eccentricity of PRL and URL ROIs and assign back to them.
